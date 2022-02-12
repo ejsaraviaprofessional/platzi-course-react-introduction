@@ -4,6 +4,7 @@ import { TodoCounter } from "../components/TodoCounter";
 import { TodoItem } from "../components/TodoItem";
 import { TodoList } from "../components/TodoList";
 import { TodoSearch } from "../components/TodoSearch";
+import { TodoForm } from "../components/TodoForm";
 
 import { TodoContext } from "../providers/TodoContext";
 import { Modal } from "../Modal";
@@ -35,13 +36,12 @@ export function AppUI() {
         </TodoList>
         {!!openModal && (
           <Modal >
-            <p>Hello</p>
+            <TodoForm > </TodoForm>
           </Modal>
         )}
         
       <CreateTodoButton 
         setOpenModal={setOpenModal}
-        openModal={openModal}
       />
     </>
   );
