@@ -1,11 +1,13 @@
 import React from 'react'
 import './TodoSearch.css'
+import { TodoContext } from "../../providers/TodoContext";
 
-export function TodoSearch(props) {
+export function TodoSearch() {
+  const { searchValue, setSearchValue } = React.useContext(TodoContext)
   
 
   const onSearchValueChange = (event) => {
-    props.setSearchValue(event.target.value)
+    setSearchValue(event.target.value)
   }
 
   return (
@@ -13,10 +15,10 @@ export function TodoSearch(props) {
       <input 
         className="TodoSearch" 
         placeholder="search" 
-        value={props.searchValue}
+        value={searchValue}
         onChange={onSearchValueChange}
       />
-      <p>{props.searchValue}</p>
+      <p>{searchValue}</p>
     </>
   )
 }
