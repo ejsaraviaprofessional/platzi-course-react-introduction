@@ -1,11 +1,25 @@
-import React from 'react'
+import React from 'react';
+import './TodoItem.css';
 
-export function TodoItem(props) {
+function TodoItem({completed, text, onComplete, onDelete}) {
+
   return (
-      <li>
-        <span>C</span>
-        <p>{props.text}</p>
-        <span>X</span>
-      </li>
-  )
+    <li className="TodoItem">
+      <span className={`Icon Icon-check ${completed && 'Icon-check--active'}`}
+        onClick={onComplete}
+      >
+        √
+      </span>
+      <p className={`TodoItem-p ${completed && 'TodoItem-p--complete'}`}>
+        {text}
+      </p>
+      <span className="Icon Icon-delete"
+        onClick={onDelete}
+      >
+        X
+      </span>
+    </li>
+  );
 }
+
+export { TodoItem };
