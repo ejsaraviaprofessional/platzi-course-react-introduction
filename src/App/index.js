@@ -5,7 +5,18 @@ import { AppUI } from './AppUI';
 import { todos as defaultTodos } from '../data/todos';
 
 function App({ }) {
-  const [todos, setTodos] = React.useState(defaultTodos)
+  const localStorageTodos = localStorage.getItem('TODOS_V1');
+
+  let parsedTodos;
+
+  if (!localStorageTodos) {
+    localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos));
+    parsedTodos = defaultTodos
+  } else {
+    parsedTodos = JSON.parse(localStorageTodos)
+  }
+
+  const [todos, setTodos] = React.useState(parsedTodos)
   const [searchValue, setSearchValue] = React.useState('')
   
   const completedTodos = todos.filter(todo => !!todo.completed).length
@@ -22,13 +33,19 @@ function App({ }) {
   } else {
     searchedTodos = todos
   }
+  
+  const updateStorage = (items) => {
+    localStorage.setItem('TODOS_V1', JSON.stringify(items));
+    setTodos(items)
+  }
 
   const completeTodo = (key) => {
     const todoIndex = todos.findIndex(todo => todo.text === key)
 
     const newTodos = [...todos]
     newTodos[todoIndex].completed = true
-    setTodos(newTodos)
+    updateStorage(newTodos)
+   
   }
 
   const deleteTodo = (key) => {
@@ -36,7 +53,8 @@ function App({ }) {
 
     const newTodos = [...todos]
     newTodos.splice(todoIndex, 1)
-    setTodos(newTodos)
+    updateStorage(newTodos)
+    
   }
   return (
     <AppUI 
